@@ -23,4 +23,8 @@ Tasks must be written in a JSON file with the following syntax:
 
 See example in `tasks.json`.
 
-Usage: `gantt.py tasks.json gantt.pdf`
+Usage: `gantt.py tasks.json gantt.pdf`.
+
+Example: 
+
+![Example of Gantt chart](https://raw.githubusercontent.com/glatard/gantt/master/gantt.png)
