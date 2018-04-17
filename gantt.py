@@ -45,7 +45,7 @@ def main():
             (task['start-time']/float(max_end_time), 1.0/n_nodes*node_index[task['node']]),  # (x,y)
             task_duration/float(max_end_time),  # width
             1.0/n_nodes,  # height
-            facecolor = (0.7, random(), random())
+            facecolor = (random(), random(), random())
         ))
 
     fig.savefig(results.output_file)
