@@ -1,0 +1,29 @@
+{
+    "tasks": [
+       {
+            "name": "task1",
+            "start-time": 0,
+            "end-time": 10,
+            "node": "node1"
+        },
+        {
+            "name": "task2",
+            "start-time": 10,
+            "end-time": 20,
+            "node": "node1"
+        },
+                {
+            "name": "task3",
+            "start-time": 100,
+            "end-time": 222,
+            "node": "node2"
+        },
+                {
+            "name": "task4",
+            "start-time": 112,
+            "end-time": 312,
+            "node": "node3"
+        }
+        
+    ]
+}
