@@ -47,6 +47,8 @@ def main():
             1.0/n_nodes,  # height
             facecolor = (random(), random(), random())
         ))
+        if task_duration/float(max_end_time) > 0.1: # add names of tasks that represent more than 10% of the makespan
+            ax1.text(task['start-time']/float(max_end_time), 1.0/n_nodes*(node_index[task['node']]+0.5), task['name'])
 
     fig.savefig(results.output_file)
 
