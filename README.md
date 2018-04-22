@@ -8,12 +8,14 @@ Tasks must be written in a JSON file with the following syntax:
     "tasks": [
        {
             "name": "task1",
+            "id": 0,
             "start-time": 0,
             "end-time": 10,
             "node": "node1"
         },
         {
             "name": "task2",
+            "id": 1,
             "start-time": 10,
             "end-time": 20,
             "node": "node1"

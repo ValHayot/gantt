@@ -6,6 +6,7 @@ import matplotlib.patches as patches
 import json
 import argparse
 
+
 def main():
     parser = argparse.ArgumentParser("Prints a Gantt chart for computing tasks")
     parser.add_argument("tasks_json", action="store",
@@ -28,27 +29,41 @@ def main():
             node_index[task['node']] = len(node_index)
     n_nodes = len(node_index)
 
+    # Determine max number of concurrent tasks in nodes
+    overlaps = {}
+    for t in tasks_json:
+        overlaps[t['id']] = []
+        for u in tasks_json:
+            if not (t['node'] != u['node'] or t['end-time'] <= u['start-time'] or u['end-time'] <= t['start-time']):
+                overlaps[t['id']].append(u)
+        overlaps[t['id']].sort(key=lambda x: x['id'])
+
+    # Plot figure
     fig = plt.figure()
     ax1 = fig.add_subplot(111, aspect='equal')
 
     # Axes
     ax1.set_xlabel("time")
     ax1.get_yaxis().set_visible(False)
-    ax1.axes.xaxis.set_ticklabels([0, max_end_time/5.0, 2*max_end_time/5.0, 3*max_end_time/5.0, 4*max_end_time/5.0, max_end_time])
+    ax1.axes.xaxis.set_ticklabels([0, "", "", "", "", round(max_end_time)])
     for node in node_index.keys():
         ax1.text(-0.2, 1.0/n_nodes*node_index[node]+0.5/n_nodes, node)
 
     # Tasks
     for task in tasks_json:
         task_duration = task['end-time']-task['start-time']
+        height = 1.0/(n_nodes*len(overlaps[task['id']]))
+        width = task_duration/float(max_end_time)
+        x = task['start-time']/float(max_end_time)
+        y = 1.0/n_nodes*node_index[task['node']] + overlaps[task['id']].index(task)*height
         ax1.add_patch(patches.Rectangle(
-            (task['start-time']/float(max_end_time), 1.0/n_nodes*node_index[task['node']]),  # (x,y)
-            task_duration/float(max_end_time),  # width
-            1.0/n_nodes,  # height
+            (x, y),  # (x,y)
+            width,  # width
+            height,  # height
             facecolor = (random(), random(), random())
         ))
         if task_duration/float(max_end_time) > 0.1: # add names of tasks that represent more than 10% of the makespan
-            ax1.text(task['start-time']/float(max_end_time), 1.0/n_nodes*(node_index[task['node']]+0.5), task['name'])
+            ax1.text(x, y+0.5*height, task['id'])
 
     fig.savefig(results.output_file)
 

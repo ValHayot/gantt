@@ -2,24 +2,35 @@
     "tasks": [
        {
             "name": "task1",
+            "id": 1,
             "start-time": 0,
             "end-time": 10,
             "node": "node1"
         },
         {
             "name": "task2",
-            "start-time": 10,
+            "id": 2,
+            "start-time": 10.1,
             "end-time": 20,
             "node": "node1"
         },
                 {
+            "name": "task5",
+            "id": 3,
+            "start-time": 100,
+            "end-time": 222,
+            "node": "node2"
+        },
+        {
             "name": "task3",
+            "id": 4,
             "start-time": 100,
             "end-time": 222,
             "node": "node2"
         },
                 {
             "name": "task4",
+            "id": 5,
             "start-time": 112,
             "end-time": 312,
             "node": "node3"
