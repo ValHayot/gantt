@@ -22,6 +22,8 @@ def main():
     node_index = {}
     max_end_time = 0
     for task in tasks_json:
+        if task['end-time'] == task['start-time']:
+            task['end-time'] += 10**-6  # tasks of length 0 are not possible
         assert(task['end-time'] > task['start-time'])
         if task['end-time'] > max_end_time:
             max_end_time = task['end-time']
@@ -37,6 +39,7 @@ def main():
             if not (t['node'] != u['node'] or t['end-time'] <= u['start-time'] or u['end-time'] <= t['start-time']):
                 overlaps[t['id']].append(u)
         overlaps[t['id']].sort(key=lambda x: x['id'])
+        assert(len(overlaps[t['id']]) >= 1)
 
     # Plot figure
     fig = plt.figure()
